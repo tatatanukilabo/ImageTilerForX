@@ -43,6 +43,7 @@ def create_image_grid(images, rows, cols):
     grid_image = Image.new('RGB', (cols * width, rows * height))
 
     for i, image in enumerate(images):
+        st.write(image)
         row = i // cols
         col = i % cols
         grid_image.paste(image, (col * width, row * height))
