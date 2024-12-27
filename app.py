@@ -60,6 +60,7 @@ def main():
     fill_path = "./fill"
     delete_files(dir_path)
     delete_files(resize_path)
+    delete_files(fill_path)
 
     st.subheader('スクショを1枚の画像に並べるアプリ（for X）ver.0.1')
 
@@ -128,6 +129,7 @@ def main():
 
         delete_files(dir_path)
         delete_files(resize_path)
+        delete_files(fill_path)
 
     url = "https://x.com/ta_ta_ta_nu_ki"
     st.write("Copyright © 2024 [たたたぬき](%s) #たぬきツール" % url)
