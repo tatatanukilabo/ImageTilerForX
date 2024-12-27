@@ -18,6 +18,7 @@ def get_all_file_paths(dir_path):
         for filename in files:
             file_path = os.path.join(root, filename)
             file_paths.append(file_path)
+    files.sort()
     return file_paths
 
 def resize_image(file_path, save_path, width, height):
