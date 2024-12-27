@@ -72,26 +72,27 @@ def main():
         files = get_all_file_paths(dir_path)
         print(files)
 
+        num = len(files)
+
         for i, file in enumerate(files):
-            resize_image(file, f'{resize_path}/a{str(i).zfill(4)}.png', 300, 4096)
+            resize_image(file, f'{resize_path}/{str(i).zfill(4)}.png', 300, 4096)
 
         files = get_all_file_paths(resize_path)
 
         if len(files) == 0:
             return True
 
-        num = len(files)
         col = user_number
 
         rem = num % col
         row = math.ceil(num / col)
 
-        im = Image.open(f'{resize_path}/a{str(i).zfill(4)}.png')
+        im = Image.open(f'{resize_path}/{str(0).zfill(4)}.png')
         width, height = im.size
         if rem != 0:
             for i in range(col - rem):
                 filled_image = create_filled_image(width, height, color)
-                filled_image.save(f'{resize_path}/s{str(i).zfill(4)}.png')
+                filled_image.save(f'{resize_path}/{str(i+num).zfill(4)}.png')
 
         # 画像を読み込む
         files = get_all_file_paths(resize_path)
