@@ -13,13 +13,17 @@ def delete_files(path):
             pass
 
 def get_all_file_paths(dir_path):
+    # 対象となる拡張子
+    image_extensions = ('.jpg', '.jpeg', '.png')
+    # 対象ファイルを格納するリスト
     file_paths = []
-    for root, dir_path, files in os.walk(dir_path):
-        for filename in files:
-            file_path = os.path.join(root, filename)
-            file_paths.append(file_path)
-    files.sort()
+    # ディレクトリ内のファイルをリストアップ
+    for root, _, files in os.walk(dir_path):
+        for file in files:
+            if file.lower().endswith(image_extensions):
+                file_paths.append(os.path.join(root, file))
     return file_paths
+
 
 def resize_image(file_path, save_path, width, height):
     im = Image.open(file_path)
