@@ -2,6 +2,7 @@ import os
 from PIL import Image
 import math
 import streamlit as st
+from datetime import datetime
 
 def delete_files(path):
     for filename in get_all_file_paths(path):
@@ -72,7 +73,7 @@ def main():
         print(files)
 
         for i, file in enumerate(files):
-            resize_image(file, f'{resize_path}/output{i}.png', 300, 4096)
+            resize_image(file, f'{resize_path}/{str(i).zfill(4)}.png', 300, 4096)
 
         files = get_all_file_paths(resize_path)
 
@@ -84,19 +85,20 @@ def main():
 
         rem = num % col
         row = math.ceil(num / col)
-        print(num, rem, row, col)
 
-        im = Image.open(f'{resize_path}/output{i}.png')
+        im = Image.open(f'{resize_path}/{str(i).zfill(4)}.png')
         width, height = im.size
         if rem != 0:
             for i in range(col - rem):
                 filled_image = create_filled_image(width, height, color)
-                filled_image.save(f'{resize_path}/outputs{i}.png')
+                filled_image.save(f'{resize_path}/s{str(i).zfill(4)}.png')
 
         # 画像を読み込む
         files = get_all_file_paths(resize_path)
+        num = len(files)
         images = [Image.open(path) for path in files]
 
+        print(num, rem, row, col, col - rem)
         # 2x2のタイル状に配置
         grid_image = create_image_grid(images, rows=row, cols=col)
 
@@ -104,9 +106,13 @@ def main():
         grid_image.save('grid_image.png')
         resize_image(file, 'grid_image.png', 4096, 4096)
 
+        image = Image.open("grid_image.png")
+        st.image(image, caption='生成画像')
 
         # ダウンロード
-        st.download_button('ダウンロード', open('grid_image.png', 'br'), "grid_1.png")
+        now = datetime.now()
+        now_string = now.strftime("%Y%m%d%H%M%S")
+        st.download_button('ダウンロード', open('grid_image.png', 'br'), f"{now_string}_image.png")
 
         os.remove("grid_image.png")
 
