@@ -91,7 +91,7 @@ def main():
         if rem != 0:
             for i in range(col - rem):
                 filled_image = create_filled_image(width, height, color)
-                filled_image.save(f'{resize_path}/b{str(i).zfill(4)}.png')
+                filled_image.save(f'{resize_path}/s{str(i).zfill(4)}.png')
 
         # 画像を読み込む
         files = get_all_file_paths(resize_path)
