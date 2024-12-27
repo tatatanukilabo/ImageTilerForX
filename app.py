@@ -57,6 +57,7 @@ def create_image_grid(images, rows, cols):
 def main():
     dir_path = "./image"
     resize_path = "./resize"
+    fill_path = "./fill"
     delete_files(dir_path)
     delete_files(resize_path)
 
@@ -95,14 +96,16 @@ def main():
 
         im = Image.open(f'{resize_path}/{str(0).zfill(4)}.png')
         width, height = im.size
+
         if rem != 0:
             for i in range(col - rem):
                 filled_image = create_filled_image(width, height, color)
-                filled_image.save(f'{resize_path}/{str(i+num).zfill(4)}.png')
+                filled_image.save(f'{fill_path}/{str(i+num).zfill(4)}.png')
+            files_fill = get_all_file_paths(fill_path)
+            files = files + files_fill
 
-        # 画像を読み込む
-        files = get_all_file_paths(resize_path)
         num = len(files)
+        print(files)
         images = [Image.open(path) for path in files]
 
         print(num, rem, row, col, col - rem)
